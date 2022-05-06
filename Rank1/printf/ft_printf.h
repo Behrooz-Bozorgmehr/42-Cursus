@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:26:07 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/05/05 18:49:36 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/05/06 18:41:22 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,6 @@ int		ft_switch_spec(va_list args, char spec);
 int		ft_switch_spec_others(va_list args, char spec);
 int		ft_read_format(va_list args, const char *format);
 int		ft_add_zpace(va_list args, const char *format);
+char	*ft_free_ptr(char *ptr);
+int		ft_get_arg(va_list args, const char *format, int i);
 #endif		/* FT_PRINTF_H */
