@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 14:24:27 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/05/06 22:48:35 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/05/07 07:03:08 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 char	*ft_free_ptr(char *ptr)
 {
-	free(ptr);
+	if (ptr != NULL)
+		free(ptr);
 	ptr = NULL;
 	return (ptr);
 }
@@ -27,16 +28,18 @@ int	ft_get_arg(va_list args, const char *format, int i)
 	len = 0;
 	while (1)
 	{
-	   c = format[i];	
-	   if (c == 'c' || c == 's' || c == 'x' || c == 'X' || c == 'p' || c == 'u')
-	   {
-		   len = ft_switch_spec(args, c);		 
-		   break;
-	   }
-	   i++;
+		c = format[i];
+		if (c == 'c' || c == 's' || c == 'x' || c == 'X'
+			|| c == 'p' || c == 'u')
+		{
+			len = ft_switch_spec(args, c);
+			break ;
+		}
+		i++;
 	}
 	return (len);
 }
+
 int	ft_switch_spec_others(va_list args, char spec)
 {
 	int	len;

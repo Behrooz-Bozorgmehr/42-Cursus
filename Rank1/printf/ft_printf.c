@@ -6,19 +6,19 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 19:49:12 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/05/06 22:52:52 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/05/07 07:04:49 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-int ft_print_sign(va_list args, const char *format, int i)
+
+int	ft_print_sign(va_list args, const char *format, int i)
 {
 	int		len;
 	char	*ptr;
-	
+
 	len = 0;
 	ptr = ft_itoa(va_arg(args, int));
-//	if (ft_atoi(ptr) >= 0)
 	if (ft_ptr_value(ptr) >= 0)
 	{
 		len = ft_print_char(format[i]);
@@ -30,60 +30,30 @@ int ft_print_sign(va_list args, const char *format, int i)
 	return (len);
 }
 
-int ft_hashtag(va_list args, const char *format, int i)
-{
-	int		len;
-	char	*ptr;
-
-	len = ft_print_char('0');
-	if (format[i] == 'x' || format[i] == 'X') 
-	{
-		ptr = ft_convert_num(va_arg(args, unsigned int), 16, format[i]);
-		if (*ptr > '0')
-		{
-			len += ft_print_char(format[i]);
-			len += ft_print_ptr(ptr);
-		}
-		else
-			ft_free_ptr(ptr);
-	}
-	else 
-	{
-		ptr = ft_convert_num(va_arg(args, unsigned int), 8, format[i]);
-		if (*ptr> '0')
-			len += ft_print_ptr(ptr);
-		else
-			ft_free_ptr(ptr);
-	}
-	return (len);
-}
-
 int	ft_more_conditions(va_list args, const char *format, int i)
 {
 	int		len;
 	char	c;
+
 	len = 0;
-
 	c = format[i];
-	if ((c== '-' || c == '+') && (format[i + 1] == 'd'
-				|| format[i + 1 ] == 'i'))
+	if ((c == '-' || c == '+') && (format[i + 1] == 'd'
+			|| format[i + 1 ] == 'i'))
 		len = ft_print_sign(args, format, i);
-
 	else if (c == '#' && (format[i + 1] == 'x'
-				|| format[i + 1] == 'X'))
+			|| format[i + 1] == 'X'))
 	{
 		i++;
 		len = ft_hashtag(args, format, i);
 	}
 	else if (c == '0' || c == ' ' )
-	    len = ft_add_zpace(args, format + i);	
+		len = ft_add_zpace(args, format + i);
 	else if (c == '-')
 		len = ft_get_arg(args, format, i);
-	
 	return (len);
 }
 
-int ft_read_flag(va_list args, const char *format, int *i)
+int	ft_read_flag(va_list args, const char *format, int *i)
 {
 	int		len;
 	char	c;
@@ -104,9 +74,9 @@ int ft_read_flag(va_list args, const char *format, int *i)
 
 int	ft_read_format(va_list args, const char *format)
 {
-	static int		i;
+	int		i;
 	int		len;
-	
+
 	i = 0;
 	len = 0;
 	while (format[i] != '\0')
@@ -114,7 +84,7 @@ int	ft_read_format(va_list args, const char *format)
 		if (format[i] == '%')
 		{
 			i++;
-			len += ft_read_flag(args, format, &i);	
+			len += ft_read_flag(args, format, &i);
 		}
 		else
 			len += write(1, &format[i], 1);

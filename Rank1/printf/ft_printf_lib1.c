@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 13:34:20 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/05/06 19:01:02 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/05/07 17:36:39 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,66 @@ int	ft_add_zpace(va_list args, const char *format)
 	i = 0;
 	len = ft_atoi(format);
 	ptr = ft_itoa(va_arg(args, int));
-	i  = len - ft_strlen(ptr);
-	while(i > 0)
+	i = len - ft_strlen(ptr);
+	while (i > 0)
 	{
 		ft_print_char(format[0]);
 		i--;
 	}
 	ft_print_ptr(ptr);
 	return (len);
+}
+
+int	ft_hashtag(va_list args, const char *format, int i)
+{
+	int		len;
+	char	*ptr;
+
+	len = ft_print_char('0');
+	if (format[i] == 'x' || format[i] == 'X')
+	{
+		ptr = ft_convert_num(va_arg(args, unsigned int), 16, format[i]);
+		if (*ptr > '0')
+		{
+			len += ft_print_char(format[i]);
+			len += ft_print_ptr(ptr);
+		}
+		else
+			ft_free_ptr(ptr);
+	}
+	else
+	{
+		ptr = ft_convert_num(va_arg(args, unsigned int), 8, format[i]);
+		if (*ptr > '0')
+			len += ft_print_ptr(ptr);
+		else
+			ft_free_ptr(ptr);
+	}
+	return (len);
+}
+
+int	ft_print_ptr(char *ptr)
+{
+	int	len;
+
+	len = write(FD, ptr, ft_strlen(ptr));
+	ft_free_ptr(ptr);
+	return (len);
+}
+
+int	ft_print_str(char *str)
+{
+	int	len;
+
+	if (str == NULL)
+		str = "(null)";
+	len = write(FD, str, ft_strlen(str));
+	return (len);
+}
+
+int	ft_print_char(char c)
+{
+	return (write(FD, &c, 1));
 }
 
 /*
@@ -61,28 +113,3 @@ int	ft_flag_manager(char *ptr, char spec, char flag)
 	return (len);
 }
 */
-int	ft_print_ptr(char *ptr)
-{
-	int	len;
-
-	len = write(FD, ptr, ft_strlen(ptr));
-	if (ptr != NULL)
-		free(ptr);
-	ptr = NULL;
-	return (len);
-}
-
-int	ft_print_str(char *str)
-{
-	int	len;
-
-	if (str == NULL)
-		str = "(null)";
-	len = write(FD, str, ft_strlen(str));
-	return (len);
-}
-
-int	ft_print_char(char c)
-{
-	return (write(FD, &c, 1));
-}
