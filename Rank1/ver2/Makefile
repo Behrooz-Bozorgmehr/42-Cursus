@@ -6,7 +6,7 @@
 #    By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/25 18:44:21 by bbozorgm          #+#    #+#              #
-#    Updated: 2022/05/07 17:28:48 by bbozorgm         ###   ########.fr        #
+#    Updated: 2022/05/17 21:11:57 by bbozorgm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,9 @@ FILES = ../ver2/ft_printf\
 		../ver2/ft_printf_lib3\
 		../libft/ft_strlen\
 		../libft/ft_toupper\
-		../libft/ft_itoa
+		../libft/ft_itoa\
+		../libft/ft_atoi\
+		../libft/ft_isdigit
 
 
 SRCS = $(addsuffix .c, $(FILES)) 
