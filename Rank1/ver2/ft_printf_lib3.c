@@ -6,12 +6,12 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 12:58:29 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/05/07 14:38:03 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/05/14 11:08:54 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
+#include <stdio.h>
 t_print *ft_init(t_print *tab)
 {
 	tab->spec = 0;
@@ -34,14 +34,30 @@ void	ft_update_tab(t_print *tab, int i)
 	ft_init(tab);
 	tab->totlen = i;
 }
-/*
+
 int	ft_right_cs(t_print *tab, int i)
 {
+	int len;
 
+	len = tab->wdt - i;
+	if (len < 0)
+		len *= -1;
+	ft_update_tab(tab, len);
+	while (len-- > 0)	
+   		write (FD, " ", 1);
+	return (0);
 }
 
 int	ft_left_cs(t_print *tab, int i)
 {
+	int len;
 
+	len = tab->wdt - i;
+	if (len < 0 )
+		len *= -1;
+	ft_update_tab(tab, len);
+	while (len-- > 0)	
+   		write (FD, " ", 1);
+	return (0);
 }
-*/
+

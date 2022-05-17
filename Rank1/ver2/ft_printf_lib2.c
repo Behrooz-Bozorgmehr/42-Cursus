@@ -6,18 +6,18 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 12:47:15 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/05/07 20:20:20 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/05/17 20:17:48 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int	ft_num_len(unsigned long long n, int base )
+#include <stdio.h>
+int	ft_num_len(uintptr_t n, unsigned int base )
 {
 	int	i;
-
+	
 	i = 1;
-	while (n >= (unsigned int) base)
+	while (n >=  base)
 	{
 		i++;
 		n = n / base;
@@ -25,13 +25,12 @@ int	ft_num_len(unsigned long long n, int base )
 	return (i);
 }
 
-void	ft_fill(char *ptr, unsigned long long n, t_print *tab, char spec)
+void	ft_fill(char *ptr, uintptr_t n, t_print *tab, char spec)
 {
 	int		remain;
 	int		len;
 	int 	base;
 	char	c;
-
 	base = 10;
 	if (spec == 'x' || spec == 'X' || spec == 'p')
 		base = 16;
@@ -64,7 +63,7 @@ void	ft_convert_and_print(t_print *tab)
 	c = tab->spec;
 	n = 0;
 	if (c == 'p')
-		n = va_arg(tab->args, unsigned long long);
+		n = va_arg(tab->args, unsigned long long );
 	else if (c == 'x' || c == 'X' || c == 'u' || c == 'o')
 		n = va_arg(tab->args, unsigned int);
 	if (c == 'p' || c == 'x' || c == 'X')
