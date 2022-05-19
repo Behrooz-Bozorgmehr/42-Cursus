@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 12:58:29 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/05/18 21:30:52 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/05/19 18:39:08 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,9 @@ int	ft_right_cs(t_print *tab, int i)
 	char padding;
 
 	padding = ' ';
-//	len = 0;
 	if (tab->is_zero)
-	{
 		padding = '0';
-//		len = -1;
-
-	}
 	len = tab->wdt - i;
-	if (len < 0)
-		len *= -1;
 	ft_update_tab(tab, len);
 	while (len-- > 0)	
    		write (FD, &padding, 1);
@@ -64,8 +57,6 @@ int	ft_left_cs(t_print *tab, int i)
 
 	padding = ' ';
 	len = tab->wdt - i;
-	if (len < 0 )
-		len *= -1;
 	ft_update_tab(tab, len);
 	while (len-- > 0)	
    		write (FD, &padding, 1);
