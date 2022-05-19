@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 12:58:29 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/05/19 18:39:08 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/05/19 21:50:40 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,22 @@ void	ft_update_tab(t_print *tab, int i)
 	tab->totlen = i;
 }
 
-int	ft_right_cs(t_print *tab, int i)
+int	ft_right_cs(t_print *tab, int i, char *ptr)
 {
 	int len;
 	char padding;
 
 	padding = ' ';
-	if (tab->is_zero)
-		padding = '0';
 	len = tab->wdt - i;
-	ft_update_tab(tab, len);
-	while (len-- > 0)	
-   		write (FD, &padding, 1);
+	if (tab->is_zero )
+	{
+		if (*ptr < '0')
+			write(FD, "-", 1);	
+		padding = '0';
+	}
+	//ft_update_tab(tab, len);
+	while (len-- > 0 )	
+   		tab->totlen += write (FD, &padding, 1);
 	return (0);
 }
 
@@ -57,9 +61,9 @@ int	ft_left_cs(t_print *tab, int i)
 
 	padding = ' ';
 	len = tab->wdt - i;
-	ft_update_tab(tab, len);
+//	ft_update_tab(tab, len);
 	while (len-- > 0)	
-   		write (FD, &padding, 1);
+   		tab->totlen += write (FD, &padding, 1);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 12:43:30 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/05/18 22:05:25 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/05/19 20:36:03 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_print_char(t_print *tab)
 
     c = va_arg(tab->args, int);
     if (tab->wdt && !tab->dash)
-		ft_right_cs(tab, 1);
+		ft_right_cs(tab, 1, NULL);
     write(1, &c, 1);
     if (tab->wdt && tab->dash)
 		ft_left_cs(tab, 1);
@@ -35,7 +35,7 @@ void	ft_print_str(t_print *tab)
 		str = "(null)";
 	len = ft_strlen(str);
     if (len < tab->wdt && !tab->dash)
-        ft_right_cs(tab, len);
+        ft_right_cs(tab, len, str);
      write(FD, str, len);
     if (len < tab->wdt && tab->dash)
         ft_left_cs(tab, len);
@@ -52,14 +52,14 @@ void	ft_print_ptr(t_print *tab, char *ptr)
    	
 	if (tab->spec == 'p')
 		len += 2;	
-   	if (len < tab->wdt && !tab->dash) 
-	    ft_right_cs(tab, len);
+   	if ((len < tab->wdt) && !tab->dash) 
+	    ft_right_cs(tab, len, ptr);
 	if (tab->spec == 'p')
 		write(FD, "0x", 2);
 	else if ((spec == 'd' || spec == 'i') && tab->sign > 0 && (*ptr >= '0'))
 		tab->totlen += write(FD, "+", 1);
-	else if ((spec == 'd' || spec == 'i' || spec == 'u' || spec == 'x' || spec == 'X') && tab->is_zero > 0 && (*ptr >= '0') && (len < tab->wdt || tab->wdt == 0))
-		tab->totlen += 	write(FD, "0", 1);
+//	else if ((spec == 'd' || spec == 'i' || spec == 'u' || spec == 'x' || spec == 'X') && tab->is_zero > 0 && (*ptr >= '0') && (len < tab->wdt || tab->wdt == 0))
+//		tab->totlen += 	write(FD, "0", 1);
 	else if ((spec == 'd' || spec == 'i' || spec == 'u' || spec == 'x' || spec == 'X') && tab->sp > 0 && (*ptr >= '0'))
 		tab->totlen += 	write(FD, " ", 1);
 	if (tab->htag > 0 && (spec == 'x' || spec == 'X') && (*ptr > '0') )
@@ -67,7 +67,10 @@ void	ft_print_ptr(t_print *tab, char *ptr)
 		tab->totlen += write(FD, "0",1);
 		tab->totlen += write(FD, &tab->spec, 1);
 	}
-	write(FD, ptr, ft_strlen(ptr));
+	if (*ptr < '0' && len < tab->wdt && !tab->dash)
+		write(FD, ptr + 1, ft_strlen(ptr+1));
+	else
+		write(FD, ptr, ft_strlen(ptr));
 	if (len < tab->wdt && tab->dash)
 	    ft_left_cs(tab, ft_strlen(ptr));
 	ft_update_tab(tab, len);
@@ -85,7 +88,7 @@ long	ft_ptr_value(char	*ptr)
 	sign = 1;
 	if (ptr[i] == '-')
 	{
-		i++;
+		i++;i
 		sign = -1;
 	}
 	while (ft_isdigit(ptr[i]))

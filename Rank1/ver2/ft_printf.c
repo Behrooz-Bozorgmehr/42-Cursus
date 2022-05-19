@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 07:21:09 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/05/17 21:25:32 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/05/19 21:29:06 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ int	ft_eval_format(t_print *tab, const char *format, int i)
 		i++;
 		c = format[i];
 	}
+	if (tab->point > 0)
+		tab->precision = ft_atoi(format + i);
 	if (tab->wdt < 0)
 		tab->wdt *= -1;
 	ft_print_val(tab, c);
@@ -124,20 +126,24 @@ int main()
 
 //printf("no: %d\n", printf(" %-3s %-3s %-4s %-5s %-3s\n", " - ", "", "4", "", "2 "));
 //printf("n: %d\n", ft_printf(" %-3s %-3s %-4s %-5s %-3s\n", " - ", "", "4", "", "2 "));
-  printf("n: %d\n", ft_printf("(%p)(%p)\n", -1, 2147483647));
+//  printf("n: %d\n", ft_printf("(%p)(%p)\n", -1, 2147483647));
 
-  printf("n: %d\n", ft_printf("(%p)(%p)\n", 9223372036854775807, -9223372036854775807));
+//  printf("n: %d\n", ft_printf("(%p)(%p)\n", 9223372036854775807, -9223372036854775807));
 
-	printf("%d\n", ft_num_len(-2147483648, 16));
-	printf("%d\n", ft_num_len(2147483647, 16));
+	printf("%s\n", ft_fill(-2147483648, 'p'));
+	printf("%s\n", ft_fill(2147483647, 'p'));
 	
-	printf("%d\n", ft_num_len(-2147483647, 16));
-	printf("%d\n", ft_num_len(-1, 16));
+	printf("%s\n", ft_fill(-2147483647, 'p'));
+	printf("%s\n", ft_fill(-1, 'p'));
 
-	printf("%d\n", ft_num_len(-9223372036854775807, 16));
-	printf("%d\n", ft_num_len(9223372036854775807, 16));
+	printf("%s\n", ft_fill(-9223372036854775807, 'p'));
+	printf("%s\n", ft_fill(9223372036854775807, 'p'));
 
-
+	ft_printf("(%0d)\n", 11);
+	ft_printf("(%0d)\n", -11);
+	ft_printf("(%02d)\n", -13);
+	ft_printf("(%03d)\n", -14);
+	ft_printf("(%06d)\n", -15);
 	return (0);
 }
 */
