@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 07:21:09 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/05/19 21:29:06 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/05/21 03:57:31 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ long	ft_ptr_value(char	*ptr)
 	}
 	return (0);
 }
+
 void	ft_print_val(t_print *tab, char c)
 {
 	char	*ptr;
@@ -56,12 +57,62 @@ void	ft_print_val(t_print *tab, char c)
 	}
 }
 
+int	ft_to_my_number(const char *str, int sign)
+{
+	int	i;
+	int	num;
+
+	i = 0;
+	num = 0;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		num = num * 10 + str[i] - '0';
+		i++;
+		if (num == 214748364 && str[i] <= '7')
+		{
+			num = num * 10 + str[i] - '0';
+			break ;
+		}
+		if (num == 214748364 && str[i] == '8' && sign == -1)
+			return (-2147483648);
+		if (num >= 214748364 && (str[i] >= '0' && str[i] <= '9'))
+		{
+			if (sign == -1)
+				return (0);
+			return (-1);
+		}	
+	}
+	return (num * sign);
+}
+
+int	ft_my_atoi(const char *str)
+{
+	size_t	i;
+	int		num;
+	int		sign;
+
+	i = 0;
+	num = 0;
+	sign = 1;
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
+		|| str[i] == '\f' || str[i] == '\r' || str[i] == '.')
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		sign = 1 - 2 * (str[i] == '-');
+		i++;
+	}
+	num = ft_to_my_number(str + i, sign);
+	return (num);
+}
+
 int	ft_eval_format(t_print *tab, const char *format, int i)
 {
 	char	c;
 
 	c = format[i];
-	tab->wdt = ft_atoi(format + i);
+	tab->wdt = ft_my_atoi(format + i);
+	tab->precision = ft_my_atoi(format + i);
 	while (ft_is_spec(c) == 0)
 	{
 		if (c  == '-')
@@ -80,8 +131,9 @@ int	ft_eval_format(t_print *tab, const char *format, int i)
 		i++;
 		c = format[i];
 	}
-	if (tab->point > 0)
-		tab->precision = ft_atoi(format + i);
+//	if (tab->point > 0)
+//		tab->precision = ft_atoi(format + i - 1 );
+
 	if (tab->wdt < 0)
 		tab->wdt *= -1;
 	ft_print_val(tab, c);
@@ -113,37 +165,5 @@ int ft_printf(const char *format, ...)
     free (tab);
 	tab = NULL;
     return (ret);
-}/*
-#include <stdio.h>
-int main()
-{
-
-
-//printf("no: %d\n", printf("(%-2s)(%-3s)(%-4s)(%-5s)\n", " - ", "5", "4", ""));
-
-//printf("n:%d\n",ft_printf("(%-2s)(%-3s)(%-4s)(%-5s)\n", " -", "5", "4", ""));
-
-
-//printf("no: %d\n", printf(" %-3s %-3s %-4s %-5s %-3s\n", " - ", "", "4", "", "2 "));
-//printf("n: %d\n", ft_printf(" %-3s %-3s %-4s %-5s %-3s\n", " - ", "", "4", "", "2 "));
-//  printf("n: %d\n", ft_printf("(%p)(%p)\n", -1, 2147483647));
-
-//  printf("n: %d\n", ft_printf("(%p)(%p)\n", 9223372036854775807, -9223372036854775807));
-
-	printf("%s\n", ft_fill(-2147483648, 'p'));
-	printf("%s\n", ft_fill(2147483647, 'p'));
-	
-	printf("%s\n", ft_fill(-2147483647, 'p'));
-	printf("%s\n", ft_fill(-1, 'p'));
-
-	printf("%s\n", ft_fill(-9223372036854775807, 'p'));
-	printf("%s\n", ft_fill(9223372036854775807, 'p'));
-
-	ft_printf("(%0d)\n", 11);
-	ft_printf("(%0d)\n", -11);
-	ft_printf("(%02d)\n", -13);
-	ft_printf("(%03d)\n", -14);
-	ft_printf("(%06d)\n", -15);
-	return (0);
 }
-*/
+

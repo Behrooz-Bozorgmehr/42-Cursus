@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 12:58:29 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/05/19 21:50:40 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/05/21 04:07:59 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,35 @@ int	ft_left_cs(t_print *tab, int i)
    		tab->totlen += write (FD, &padding, 1);
 	return (0);
 }
+
+int	ft_precision(t_print *tab, int len, char *ptr)
+{
+	int i;
+	char	*pre;
+
+	if (*ptr < '0')
+	{
+		write(FD, "-", 1);	
+		len--;
+	}
+	i = tab->precision - len;
+/*	if (i < 0)
+	{
+
+		write(FD, "-",1);
+		i = tab->precision - 1;
+	}
+*/		pre = (char *) malloc(sizeof(char) * (i + 1));
+	if (pre != NULL)
+	{
+
+		pre[i] = '\0';
+		while(--i >= 0)
+		   pre[i] = '0';
+	}
+	tab->totlen += write(FD, pre, ft_strlen(pre));
+	ft_free(pre);
+	return (0);
+}
+
 

@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 12:47:15 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/05/19 20:15:40 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/05/21 02:56:07 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,25 @@ int	ft_num_len(uintptr_t n, unsigned int base )
 	}
 	return (i);
 }
+/*
+void	ft_short_ptr(char *ptr)
+{
+	int i;
+	int j;
+	int len;
+	i = 0;
+	j = 8;
+	len = ft_strlen(ptr);
+	while(j < len && (ptr[i] == 'f' || ptr[i] == 'F'))
+	{
+		ptr[i++] = ' ';
+	}
+	j = 0;
+	while(i < len)
+		ptr[j++] = ptr[i++];
+	ptr[i] = '\0';	
 
+}*/
 void	ft_fill(char *ptr, uintptr_t n, t_print *tab, char spec)
 {
 	int		remain;
@@ -42,7 +60,7 @@ void	ft_fill(char *ptr, uintptr_t n, t_print *tab, char spec)
 	while (n > 0)
 	{
 		remain = n % base;
-		if (spec== 'X' && remain > 9)
+		if (spec== 'X')
 			c = (char)ft_toupper(HEXA_TABLE[remain]);
 		else
 			c = HEXA_TABLE[remain];
@@ -50,8 +68,11 @@ void	ft_fill(char *ptr, uintptr_t n, t_print *tab, char spec)
 		n = n / base;
 	}
 	ptr[len] = '\0';
+//	ft_short_ptr(ptr);
 	ft_print_ptr(tab, ptr);
 }
+
+
 
 void	ft_convert_and_print(t_print *tab)
 {

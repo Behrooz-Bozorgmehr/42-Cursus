@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:20:22 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/05/19 20:25:30 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/05/20 20:43:55 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,5 @@ t_print *ft_init(t_print *tab);
 int		ft_left_cs(t_print *tab, int i);
 int		ft_right_cs(t_print *tab, int i, char *ptr);
 long	ft_ptr_value(char *ptr);
-
+int		ft_precision(t_print *tab, int i, char *ptr);
 #endif		/* FT_PRINTF_H */
