@@ -6,7 +6,7 @@
 #    By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/25 18:44:21 by bbozorgm          #+#    #+#              #
-#    Updated: 2022/05/17 21:11:57 by bbozorgm         ###   ########.fr        #
+#    Updated: 2022/05/21 09:57:14 by bbozorgm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ FILES = ../ver2/ft_printf\
 		../ver2/ft_printf_lib1\
 		../ver2/ft_printf_lib2\
 		../ver2/ft_printf_lib3\
+		../ver2/ft_printf_lib4\
 		../libft/ft_strlen\
 		../libft/ft_toupper\
 		../libft/ft_itoa\

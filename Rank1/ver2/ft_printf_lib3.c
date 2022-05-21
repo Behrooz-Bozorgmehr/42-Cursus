@@ -6,13 +6,13 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 12:58:29 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/05/21 04:07:59 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/05/21 10:19:33 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
-t_print *ft_init(t_print *tab)
+
+t_print	*ft_init(t_print *tab)
 {
 	tab->spec = 0;
 	tab->dash = 0;
@@ -37,64 +37,53 @@ void	ft_update_tab(t_print *tab, int i)
 
 int	ft_right_cs(t_print *tab, int i, char *ptr)
 {
-	int len;
-	char padding;
+	int		len;
+	char	padding;
 
 	padding = ' ';
 	len = tab->wdt - i;
-	if (tab->is_zero )
+	if (tab->is_zero)
 	{
 		if (*ptr < '0')
-			write(FD, "-", 1);	
+			write(FD, "-", 1);
 		padding = '0';
 	}
-	//ft_update_tab(tab, len);
-	while (len-- > 0 )	
-   		tab->totlen += write (FD, &padding, 1);
+	while (len-- > 0)
+		tab->totlen += write (FD, &padding, 1);
 	return (0);
 }
 
 int	ft_left_cs(t_print *tab, int i)
 {
-	int len;
+	int		len;
 	char	padding;
 
 	padding = ' ';
 	len = tab->wdt - i;
-//	ft_update_tab(tab, len);
-	while (len-- > 0)	
-   		tab->totlen += write (FD, &padding, 1);
+	while (len-- > 0)
+		tab->totlen += write (FD, &padding, 1);
 	return (0);
 }
 
 int	ft_precision(t_print *tab, int len, char *ptr)
 {
-	int i;
+	int		i;
 	char	*pre;
 
 	if (*ptr < '0')
 	{
-		write(FD, "-", 1);	
+		write(FD, "-", 1);
 		len--;
 	}
 	i = tab->precision - len;
-/*	if (i < 0)
-	{
-
-		write(FD, "-",1);
-		i = tab->precision - 1;
-	}
-*/		pre = (char *) malloc(sizeof(char) * (i + 1));
+	pre = (char *) malloc(sizeof(char) * (i + 1));
 	if (pre != NULL)
 	{
-
 		pre[i] = '\0';
-		while(--i >= 0)
-		   pre[i] = '0';
+		while (--i >= 0)
+			pre[i] = '0';
 	}
 	tab->totlen += write(FD, pre, ft_strlen(pre));
 	ft_free(pre);
 	return (0);
 }
-
-

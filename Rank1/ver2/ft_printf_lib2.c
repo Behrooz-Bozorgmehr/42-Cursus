@@ -6,61 +6,44 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 12:47:15 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/05/21 02:56:07 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/05/21 10:21:33 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
+
 int	ft_num_len(uintptr_t n, unsigned int base )
 {
 	int	i;
-	
+
 	i = 1;
-	while (n >=  base)
+	while (n >= base)
 	{
 		i++;
 		n = n / base;
 	}
 	return (i);
 }
-/*
-void	ft_short_ptr(char *ptr)
-{
-	int i;
-	int j;
-	int len;
-	i = 0;
-	j = 8;
-	len = ft_strlen(ptr);
-	while(j < len && (ptr[i] == 'f' || ptr[i] == 'F'))
-	{
-		ptr[i++] = ' ';
-	}
-	j = 0;
-	while(i < len)
-		ptr[j++] = ptr[i++];
-	ptr[i] = '\0';	
 
-}*/
-void	ft_fill(char *ptr, uintptr_t n, t_print *tab, char spec)
+void	ft_fill(char *ptr, uintptr_t n, t_print *tab)
 {
 	int		remain;
 	int		len;
-	int 	base;
+	int		base;
 	char	c;
+
 	base = 10;
-	if (spec == 'x' || spec == 'X' || spec == 'p')
+	if (tab->spec == 'x' || tab->spec == 'X' || tab->spec == 'p')
 		base = 16;
-	else if (spec == 'o')
+	else if (tab->spec == 'o')
 		base = 8;
 	len = ft_num_len(n, base);
 	if (n == 0)
-		ptr[0] = '0';	
+		ptr[0] = '0';
 	while (n > 0)
 	{
 		remain = n % base;
-		if (spec== 'X')
+		if (tab->spec == 'X')
 			c = (char)ft_toupper(HEXA_TABLE[remain]);
 		else
 			c = HEXA_TABLE[remain];
@@ -68,18 +51,15 @@ void	ft_fill(char *ptr, uintptr_t n, t_print *tab, char spec)
 		n = n / base;
 	}
 	ptr[len] = '\0';
-//	ft_short_ptr(ptr);
 	ft_print_ptr(tab, ptr);
 }
 
-
-
 void	ft_convert_and_print(t_print *tab)
 {
-	char	*retval;
-	int		num_len;
-	char	c;
-	unsigned long long n;
+	char				*retval;
+	int					num_len;
+	char				c;
+	unsigned long long	n;
 
 	c = tab->spec;
 	n = 0;
@@ -89,13 +69,13 @@ void	ft_convert_and_print(t_print *tab)
 		n = va_arg(tab->args, unsigned int);
 	if (c == 'p' || c == 'x' || c == 'X')
 		num_len = ft_num_len(n, 16);
-	else if(c == 'o')
+	else if (c == 'o')
 		num_len = ft_num_len(n, 8);
 	else
 		num_len = ft_num_len(n, 10);
 	retval = (char *) malloc(sizeof(char) * (num_len + 1));
 	if (retval != NULL)
-		ft_fill(retval, n, tab, (char)c);
+		ft_fill(retval, n, tab);
 }
 
 int	ft_is_spec(char c)
