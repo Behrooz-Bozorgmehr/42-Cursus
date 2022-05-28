@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:20:22 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/05/21 10:20:43 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/05/21 11:05:13 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <unistd.h>
 # include <stdarg.h>
 # include <stdlib.h>
-# include "../libft/libft.h"
+# include "./libft/libft.h"
 
 # define HEXA_TABLE "0123456789abcdef"
 # define SPEC "diuoxXfFeEgGaAcspn%"
