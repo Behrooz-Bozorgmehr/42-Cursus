@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 18:58:01 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/06/17 20:28:00 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/06/18 17:27:23 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	push(t_stack **lst, t_stack *elm)
 	(*lst)->prev = lst_last(*lst);
 }
 
-t_stack	*lstnew(int value)
+t_stack	*lst_new(int value)
 {
 	t_stack	*list;
 	
@@ -81,4 +81,19 @@ t_stack	*lstnew(int value)
 		list->prev = NULL;
 	}
 	return (list);
+}
+
+int	lst_size(t_stack *lst)
+{
+	int	len;
+
+	len = 1;
+	if (lst == NULL)
+		return (0);
+	while (lst->next != NULL)
+	{
+		len++;
+		lst = lst->next;
+	}
+	return (len);
 }

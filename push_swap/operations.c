@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 17:46:07 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/06/17 20:27:52 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/06/18 17:27:26 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,21 @@
 
 int	swap(t_stack *lst)
 {
-	int	temp;
-	
-	if (lst != NULL && lst->next != NULL)
+//	t_stack *temp;
+	int temp;
+	if (lst != NULL && (lst)->next != NULL)
 	{
-		temp = lst->next->val;
-		lst->next->val = lst->val;
-		lst->val = temp;
+/*		temp = *lst;
+		*lst = (*lst)->next;
+		temp->next = (*lst)->next;
+		(*lst)->next = temp;
+		temp->next->prev = temp;
+		(*lst)->prev = temp->prev;
+		temp->prev = *lst;
+*/
+		temp = (lst)->val;
+		(lst)->val = (lst)->next->val;
+		(lst)->next->val = temp;
 		return (1);
 	}
 	return (0);
@@ -52,15 +60,18 @@ void	lstadd_front(t_stack **lst, t_list *new)
 	*lst = new;
 }
 */
-int	pop_push(t_stack *dst, t_stack *src)
+int	pop_push(t_stack **dst, t_stack **src)
 {
 	t_stack	*temp;
 	if (src != NULL)
 	{
-		temp = src;
-		src = src->next;
-		temp->next = dst;
-		dst = temp;
+		printf("pop_push : src-val: %d\t src-next: %d\t src-prev: %d\n", (*src)->val, (*src)->next->val, (*src)->prev->val);
+		temp = *src;
+		*src = (*src)->next;
+		(*src)->prev = temp->prev;
+		temp->next = *dst;
+		temp->prev = (*dst)->prev;
+		*dst = temp;
 		free(temp);
 		temp = NULL;
 		return (1);
@@ -70,14 +81,17 @@ int	pop_push(t_stack *dst, t_stack *src)
 
 void	pa(t_stack *a, t_stack *b)
 {
-	if (pop_push(a, b) == 1)
+	if (pop_push(&a, &b) == 1)
 		write(1, "pa\n", 3);
 }
 
 void	pb(t_stack *b, t_stack *a)
 {
-	if (pop_push(b, a) == 1)
+	if (pop_push(&b, &a) == 1)
+	{
 		write(1, "pb\n", 3);
+		b_algo(b);
+	}
 }
 
 t_stack	*lst_last(t_stack *lst)
@@ -89,37 +103,73 @@ t_stack	*lst_last(t_stack *lst)
 	return (lst);
 }
 
-int	rotate_forward(t_stack *lst)
+int	rotate_forward(t_stack **lst)
 {
 	t_stack	*tail;
-	t_stack	*head;
-	t_stack	*temp;
-	
-	if (lst != NULL && lst->next != NULL)
+
+	if (*lst != NULL && (*lst)->next != NULL)
 	{	
-		head = lst->next;
-		temp = lst;
-		temp->next = NULL;
-		temp->prev = lst_last(lst);
-		
-		tail = temp->prev;
-	   	tail->next = temp;
-		lst = head;
+		tail = lst_last(*lst);
+		tail->next = *lst;
+		tail = tail->next;
+		*lst = (*lst)->next;
+		tail->next = NULL;
 		return (1);
 	}
 	return (0);
 }
 
-void	ra(t_stack *a)
+
+int	rotate_backward(t_stack **lst)
+{
+	t_stack	*tail;
+	if (*lst != NULL && (*lst)->next != NULL)
+	{	
+		tail = lst_last(*lst);
+		tail->next = *lst;
+		tail->prev->next = NULL;
+		*lst = tail;
+		return (1);
+	}
+	return (0);
+}
+
+void	ra(t_stack **a)
 {
 	if (rotate_forward(a) == 1)
 		write(1, "ra\n", 3);
 }
 
-void	rb(t_stack *b)
+void	rb(t_stack **b)
 {
 	if (rotate_forward(b) == 1)
 		write(1, "rb\n", 3);
 }
 
+void	rr(t_stack **a, t_stack **b)
+{
+	if (rotate_forward(a) == 1)
+		write(1, "ra\t", 3);
+	if (rotate_forward(b) == 1)
+		write(1, "rb\n", 3);
+}
 
+void	rra(t_stack **a)
+{
+	if (rotate_backward(a) == 1)
+		write(1, "rra\n", 3);
+}
+
+void	rrb(t_stack **b)
+{
+	if (rotate_backward(b) == 1)
+		write(1, "rrb\n", 3);
+}
+
+void	rrr(t_stack **a, t_stack **b)
+{
+	if (rotate_backward(a) == 1)
+		write(1, "rra\t", 4);
+	if (rotate_backward(b) == 1)
+		write(1, "rrb\n", 4);
+}
