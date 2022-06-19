@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 17:46:07 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/06/18 17:27:26 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/06/19 19:01:12 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,38 +53,52 @@ void	ss(t_stack *a, t_stack *b)
 	if (swap(b) == 1)
 		write(1, "sb\n", 3);
 }
-/*
-void	lstadd_front(t_stack **lst, t_list *new)
+
+void	lst_add_front(t_stack **lst, t_stack *new)
 {
 	new->next = *lst;
+//	new->prev = (*lst)->prev;
+//	(*lst)->prev = new;
 	*lst = new;
+	(*lst)->prev = (*lst)->next->prev;
+	(*lst)->next->prev = (*lst);
+//	new->prev =  NULL;
+
 }
-*/
+
 int	pop_push(t_stack **dst, t_stack **src)
 {
-	t_stack	*temp;
+	t_stack	*head;
+	int value;
+
 	if (src != NULL)
 	{
-		printf("pop_push : src-val: %d\t src-next: %d\t src-prev: %d\n", (*src)->val, (*src)->next->val, (*src)->prev->val);
-		temp = *src;
+		head = *src;
+		value = (*src)->val;
 		*src = (*src)->next;
-		(*src)->prev = temp->prev;
-		temp->next = *dst;
-		temp->prev = (*dst)->prev;
-		*dst = temp;
-		free(temp);
-		temp = NULL;
+		if ((*src) != NULL)
+			(*src)->prev =  lst_last(*src);
+
+		if (*dst != NULL)
+		{
+			lst_add_front(dst, lst_new(value));
+		}
+		else
+			*dst = lst_new(value);	
+					
+		free(head);
+		head = NULL;
 		return (1);
 	}
 	return (0);
 }
-
+// source is "b" destination is "a"
 void	pa(t_stack *a, t_stack *b)
 {
 	if (pop_push(&a, &b) == 1)
 		write(1, "pa\n", 3);
 }
-
+// source is "a" destination is "b"
 void	pb(t_stack *b, t_stack *a)
 {
 	if (pop_push(&b, &a) == 1)
@@ -157,13 +171,13 @@ void	rr(t_stack **a, t_stack **b)
 void	rra(t_stack **a)
 {
 	if (rotate_backward(a) == 1)
-		write(1, "rra\n", 3);
+		write(1, "rra\n", 4);
 }
 
 void	rrb(t_stack **b)
 {
 	if (rotate_backward(b) == 1)
-		write(1, "rrb\n", 3);
+		write(1, "rrb\n", 4);
 }
 
 void	rrr(t_stack **a, t_stack **b)
