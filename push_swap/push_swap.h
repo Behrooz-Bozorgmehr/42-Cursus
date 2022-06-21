@@ -6,23 +6,24 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 17:25:33 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/06/19 19:18:53 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/06/21 20:39:01 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <unistd.h>
+# include <stdio.h>
+# include <string.h>
+# include <stdlib.h>
+# include <unistd.h>
 
-#define	TRUE 1;
-#define FALSE 0;
-typedef struct	s_stack
+# define TRUE 1;
+# define FALSE 0;
+
+typedef struct s_stack
 {
-	int 			val;
+	int				val;
 	struct s_stack	*next;
 	struct s_stack	*prev;
 }	t_stack;
@@ -42,6 +43,9 @@ void	b_algo(t_stack *b);
 void	a_algo(t_stack **a, t_stack *head, t_stack *tail, t_stack **b);
 int		pop_push(t_stack **dst, t_stack **src);
 void	sort(t_stack *a, t_stack *b);
+int		doublicated(t_stack *lst, int size);
+int		is_string(char *ptr);
+void	free_list(t_stack *lst);
 void	sa(t_stack *a);
 void	sb(t_stack *b);
 void	ss(t_stack *a, t_stack *b);
