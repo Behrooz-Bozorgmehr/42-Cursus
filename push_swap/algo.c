@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 15:01:30 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/06/21 18:10:20 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/06/22 20:13:54 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -85,23 +85,12 @@ void	a_algo(t_stack **a, t_stack *head, t_stack *tail, t_stack **b)
 			sa(*a);
 		else if ((head->val < head->next->val && ((*b) == NULL
 					|| (*a)->val < (*b)->val)) || sorted == 0)
-		{
-			write(1, "pb\n", 3);
-			if (pop_push(b, a) == 1)
-				b_algo(*b);
-		}
+			pb(b, a);
 		sorted = check_order(*a);
 		if ((sorted && (*b) != NULL) && (*a)->val < (*b)->val)
-		{
-			write(1, "pb\n", 3);
-			if (pop_push(b, a) == 1)
-				b_algo(*b);
-		}
+			pb(b, a);
 		else if ((sorted && (*b) != NULL) && (*a)->val > (*b)->val)
-		{
-			write(1, "pa\n", 3);
-			pop_push(a, b);
-		}
+			pa(a, b);
 		head = *a;
 		tail = lst_last(*a);
 	}
@@ -110,15 +99,18 @@ void	a_algo(t_stack **a, t_stack *head, t_stack *tail, t_stack **b)
 void	sort(t_stack *a, t_stack *b)
 {
 	int	sorted;
-
-	sorted = check_order(a);
-	if (sorted == 0)
-		a_algo(&a, a, lst_last(a), &b);
-	while (a->next != NULL)
+	if (a != NULL)
+	{
+		sorted = check_order(a);
+		if (sorted == 0)
+			a_algo(&a, a, lst_last(a), &b);
+	}
+	while (a != NULL && a->next != NULL)
 	{
 		printf("val: %d\t next: %d\t prev : %d\n", a->val, a->next->val,
 			a->prev->val);
 		a = a->next;
 	}
-	printf("val: %d\t next: %p\t prev : %d\n", a->val, a->next, a->prev->val);
+	if (a != NULL)
+		printf("val: %d\t next: %p\t prev : %d\n", a->val, a->next, a->prev->val);
 }

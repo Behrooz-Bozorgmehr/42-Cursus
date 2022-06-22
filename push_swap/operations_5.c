@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 18:57:59 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/06/21 20:55:25 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/06/22 20:08:25 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,42 +29,44 @@ void	free_list(t_stack *lst)
 		temp = lst;
 		lst = lst->next;
 		free(temp);
-		temp = NULL;	
+		temp = NULL;
 	}
 }
 
-int	is_string(char *ptr)
+int	is_string(char **arg, int size)
 {
-	while (*ptr != '\0')
+	int		i;
+	char	*ptr;
+
+	i = 0;
+	ptr = arg[i];
+	while (i < size)
 	{
-		if (('0' > (*ptr) || (*ptr) > '9') && ((*ptr) != '-' || (*ptr) != '+') )
+		while (*ptr != '\0')
 		{
-			write(1, "ERROR\n", 6);
-			return (1);
+			if ((*ptr < '0' || *ptr > '9') && (*ptr != '-' && *ptr != '+'))
+				return (1);
+			if ((*ptr == '-' || *ptr == '+') && *(ptr + 1) != '\0'
+				&& (*(ptr + 1) < '0' || *(ptr + 1) > '9'))
+				return (1);
+			if ((*ptr > '0' && *ptr < '9') && *(ptr + 1) != '\0'
+				&& (*(ptr + 1) < '0' || *(ptr + 1) > '9'))
+				return (1);
+			ptr++;
 		}
-		ptr++;
+		i++;
+		ptr = arg[i];
 	}
 	return (0);
 }
 
-int	doublicated(t_stack *lst, int size)
+int	is_doublicated(int *arr, int size)
 {
 	int	i;
-	int j;
-	int	retval;
-	int	*arr;
+	int	j;
 
-	arr = (int *) malloc(sizeof(int) * size);
 	i = 0;
 	j = 0;
-	retval = 0;
-	while (lst != NULL)
-	{
-		arr[i] = lst->val;
-		lst = lst->next;
-		i++;
-	}	
-	i = 0;
 	while (i < size)
 	{
 		while (j < size)
@@ -78,7 +80,25 @@ int	doublicated(t_stack *lst, int size)
 			j++;
 		}
 		j = 0;
-		i++;	
+		i++;
 	}
-	return (retval);
+	return (0);
+}
+
+int	doublicated(t_stack *lst, int size)
+{
+	int	i;
+	int	*arr;
+
+	if (lst != NULL && size > 0)
+		arr = (int *) malloc(sizeof(int) * size);
+	else
+		return (1);
+	i = 0;
+	while (lst != NULL)
+	{
+		arr[i++] = lst->val;
+		lst = lst->next;
+	}
+	return (is_doublicated(arr, size));
 }
