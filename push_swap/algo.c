@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 15:01:30 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/06/22 20:13:54 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/06/23 18:59:21 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -105,12 +105,4 @@ void	sort(t_stack *a, t_stack *b)
 		if (sorted == 0)
 			a_algo(&a, a, lst_last(a), &b);
 	}
-	while (a != NULL && a->next != NULL)
-	{
-		printf("val: %d\t next: %d\t prev : %d\n", a->val, a->next->val,
-			a->prev->val);
-		a = a->next;
-	}
-	if (a != NULL)
-		printf("val: %d\t next: %p\t prev : %d\n", a->val, a->next, a->prev->val);
 }

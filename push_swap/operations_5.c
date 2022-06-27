@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 18:57:59 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/06/22 20:08:25 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/06/23 19:57:44 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	rrr(t_stack **a, t_stack **b)
 {
 	if (rotate_backward(a) == 1)
-		write(1, "rra\t", 4);
+		write(STDOUT, "rra\t", 4);
 	if (rotate_backward(b) == 1)
-		write(1, "rrb\n", 4);
+		write(STDOUT, "rrb\n", 4);
 }
 
 void	free_list(t_stack *lst)

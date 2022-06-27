@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 17:25:33 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/06/22 20:10:54 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/06/23 20:06:43 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define TRUE 1;
-# define FALSE 0;
-
+# define STDOUT 1
+# define STDERR 2
 typedef struct s_stack
 {
 	int				val;
