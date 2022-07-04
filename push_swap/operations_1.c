@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 17:46:07 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/06/23 19:55:35 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/07/04 20:03:36 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	sb(t_stack *b)
 void	ss(t_stack *a, t_stack *b)
 {
 	if (swap(a) == 1)
-		write(STDOUT, "sa\t", 3);
+		write(STDOUT, "sa\n", 3);
 	if (swap(b) == 1)
 		write(STDOUT, "sb\n", 3);
 }

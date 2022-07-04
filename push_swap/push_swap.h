@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 17:25:33 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/06/23 20:06:43 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/07/04 18:50:21 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,12 @@ int		swap(t_stack *lst);
 int		check_order(t_stack *lst);
 void	b_algo(t_stack *b);
 void	a_algo(t_stack **a, t_stack *head, t_stack *tail, t_stack **b);
+
+void	algo_3(t_stack **a);
+
 int		pop_push(t_stack **dst, t_stack **src);
-void	sort(t_stack *a, t_stack *b);
-int		doublicated(t_stack *lst, int size);
+void	sort(t_stack **a, t_stack **b);
+int		doublicated(t_stack *lst);
 int		is_doublicated(int *arr, int size);
 int		is_string(char **arg, int size);
 void	free_list(t_stack *lst);

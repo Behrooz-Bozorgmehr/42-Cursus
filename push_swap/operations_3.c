@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 18:13:35 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/06/23 19:56:56 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/07/04 20:00:57 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int	rotate_forward(t_stack **lst)
 int	rotate_backward(t_stack **lst)
 {
 	t_stack	*tail;
-
 	if (*lst != NULL && (*lst)->next != NULL)
 	{
 		tail = lst_last(*lst);

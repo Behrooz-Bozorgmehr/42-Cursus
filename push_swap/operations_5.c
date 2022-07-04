@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 18:57:59 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/06/23 19:57:44 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/07/04 20:02:40 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	rrr(t_stack **a, t_stack **b)
 {
 	if (rotate_backward(a) == 1)
-		write(STDOUT, "rra\t", 4);
+		write(STDOUT, "rra\n", 4);
 	if (rotate_backward(b) == 1)
 		write(STDOUT, "rrb\n", 4);
 }
@@ -85,12 +85,14 @@ int	is_doublicated(int *arr, int size)
 	return (0);
 }
 
-int	doublicated(t_stack *lst, int size)
+int	doublicated(t_stack *lst)
 {
 	int	i;
 	int	*arr;
-
-	if (lst != NULL && size > 0)
+	int size;
+   
+	size = lst_size(lst);
+	if (lst != NULL)
 		arr = (int *) malloc(sizeof(int) * size);
 	else
 		return (1);

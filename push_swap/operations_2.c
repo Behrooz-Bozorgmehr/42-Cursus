@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 18:47:45 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/06/23 19:56:33 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/07/04 20:00:39 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	rb(t_stack **b)
 void	rr(t_stack **a, t_stack **b)
 {
 	if (rotate_forward(a) == 1)
-		write(STDOUT, "ra\t", 3);
+		write(STDOUT, "ra\n", 3);
 	if (rotate_forward(b) == 1)
 		write(STDOUT, "rb\n", 3);
 }
