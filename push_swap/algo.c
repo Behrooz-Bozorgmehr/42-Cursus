@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 15:01:30 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/07/04 20:27:48 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/07/05 20:32:13 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -152,18 +152,76 @@ void	algo_5(t_stack **a, t_stack **b)
 			algo_3(a);
 		if (lst_size(*b) == 2 && check_order(*b) == 1) // should be inversly ordered
 			sb(*b);
-		else if (b != NULL)
+		else if (*b != NULL)
 			pa(a, b);
 	}
-	write(1, "inalgo5\n", 8);
+}
+int	minimum(t_stack *lst)
+{
+	int	min;
+	
+	min = lst->val;
+	while (lst != NULL)
+	{
+		lst = lst->next;
+		if (lst->val < min)
+			min = lst->val;
+	}
+	return (min);
+}
+
+int	position(t_stack *lst)
+{
+	int	pos;
+	int	min;
+
+	pos = 0;
+	min = minimum(lst);
+	while (lst != NULL)
+	{
+		pos++;
+		if (lst->val == min)
+			return (pos);
+		lst = lst->next;
+	}
+	return (pos);
+}
+
+void	algo_big(t_stack **a, t_stack **b)
+{
+	int	val;
+	int	n_val;
+	int	p_val;
+	int size;
+	
+	size = lst_size(*a);
+	while (check_order(*a) == 0 || lst_size(*a) != size)
+	{
+		while (lst_size(*a) > 5 && check_order(*a) == 0)
+		{
+			val = (*a)->val;
+			n_val = (*a)->next->val;
+			p_val = (*a)->prev->val;
+			int	pos = position(*a);
+			int min = minimum(*a);
+
+			if (val == min)
+				pb(b, a);
+			else if (val > n_val)
+				sa(*a);
+			else if (pos > lst_size(*a) / 2)
+				ra(a);
+			else if (pos <= lst_size(*a) / 2)
+				rra(a);
+		}
+		if (lst_size(*a) == 5)
+			algo_5(a, b);
+		if (*b != NULL)
+			pa(a, b);
+	}
 		
 }
-/*
-void	algo_big(t_stack **a, t_stack *head, t_stack **b)
-{
 
-}
-*/
 // function is called if & only if stack is not sorted
 void	algo(t_stack **a, t_stack **b)
 {
@@ -176,8 +234,8 @@ void	algo(t_stack **a, t_stack **b)
 		algo_3(a);
 	else if (size <= 5)
 		algo_5(a, b);
-//	else if(size > 5)
-	//	algo_big(a, head, b);
+	else if(size > 5)
+		algo_big(a, b);
 }
 
 void	sort(t_stack **a, t_stack **b)

@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 18:13:35 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/07/04 20:00:57 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/07/05 20:32:20 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,11 @@
 int	swap(t_stack *lst)
 {
 	int	temp;
-
 	if (lst != NULL && (lst)->next != NULL)
 	{
 		temp = (lst)->val;
 		(lst)->val = (lst)->next->val;
-		(lst)->next->val = temp;
+		(lst)->next->val = temp;	
 		return (1);
 	}
 	return (0);
