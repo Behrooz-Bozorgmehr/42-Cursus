@@ -6,7 +6,7 @@
 #    By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/23 16:41:36 by bbozorgm          #+#    #+#              #
-#    Updated: 2022/06/29 19:54:03 by bbozorgm         ###   ########.fr        #
+#    Updated: 2022/07/09 12:10:59 by bbozorgm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ FILES = ./main.c \
 		./operations_4.c \
 		./operations_5.c \
 		./algo.c \
-		../Rank1/libft/ft_split.c
+		../Rank1/libft/ft_split.c \
+		../Rank1/libft/ft_bzero.c
 OBJS = $(FILES:.c=.o)
 .c.o: $(FILES)
 		$(CC) $(CFLAGS) -c -o $@ $<

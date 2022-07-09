@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 17:31:08 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/07/05 20:32:29 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/07/09 17:01:08 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ t_stack	*init(int size, char *arg[])
 			while(ptr [j] != NULL)
 				j++;
 			list = init_step_1(list, ptr, j);
+			ft_bzero(ptr, j);
 			free(ptr);
 			ptr = NULL;	
 			j = 0;
@@ -82,7 +83,10 @@ t_stack	*init(int size, char *arg[])
 		}
 	}
 	if (doublicated(list) == 0)
+	{
+		set_position(list, define_position(list));
 		return (list);
+	}
 	else
 	{
 		write(STDERR, "Error\n", 6);
@@ -90,3 +94,103 @@ t_stack	*init(int size, char *arg[])
 		return (NULL);
 	}
 }
+
+int	*define_position(t_stack *lst)
+{
+	int i;
+	int j;
+	int	*ptr;
+	int	size = lst_size(lst);
+
+	if (lst != NULL)
+	{
+		ptr = (int *)malloc (sizeof(int) * size);	
+		if (ptr != NULL)
+		{
+			i = 0;
+			while (i < size)
+			{
+				ptr[i++] = lst->val;
+				lst = lst->next;
+			}
+			quick_sort(ptr, 0, size - 1);		
+			return (ptr);
+		}
+	}
+	return (0);
+}
+
+void	set_position(t_stack *lst, int ptr[])
+{
+	int	i;
+	int	size;
+
+	size = lst_size(lst);
+
+	while (lst != NULL)
+	{
+		i = -1;
+		while (++i < size)
+		{
+			if (lst->val == ptr[i])
+			{
+				lst->pos = i;
+				break;
+			}
+		}
+		lst = lst->next;
+	}
+//	while(--size > 0)
+//		ptr[size] = 0;
+	free (ptr);
+	ptr = NULL;
+
+}
+
+void	quick_sort(int arg[], int start, int end)
+{
+	int piv_ind;
+
+	if (start < end)
+	{
+		piv_ind = partition(arg, start, end);
+		quick_sort(arg, start, piv_ind - 1);
+		quick_sort(arg, piv_ind + 1, end);
+	}
+}	
+
+int	partition(int arg[], int start, int end)
+{
+	int	pivot;
+	int	i;
+	int j;
+	int	temp;
+
+	i = start - 1;
+	j = start;
+	pivot = arg[end];
+	while (j < end - 1)
+	{
+		if (arg[j] < pivot)
+		{	
+			i++;
+			if (i != j)
+			{	temp = arg[i];
+				arg[i] = arg[j];
+				arg[j] = temp;
+				j = i;
+			}
+		}
+		j++;
+	}
+	i++;
+	temp = arg[i];
+	arg[i] = pivot;
+	arg[end] = temp;
+	return (i);
+}
+
+
+
+
+

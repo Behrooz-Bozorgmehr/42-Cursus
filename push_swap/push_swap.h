@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 17:25:33 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/07/05 20:32:26 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/07/09 16:18:50 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_stack
 	int				val;
 	struct s_stack	*next;
 	struct s_stack	*prev;
+	int				pos;
 }	t_stack;
 
 int		ft_atoi(const char *str);
@@ -42,7 +43,15 @@ void	b_algo(t_stack *b);
 void	a_algo(t_stack **a, t_stack *head, t_stack *tail, t_stack **b);
 
 void	algo_3(t_stack **a);
-
+void	algo_5(t_stack **a, t_stack **b);
+void	algo_big(t_stack **a, t_stack **b);
+int		position(t_stack *lst, int (*func)(t_stack *));
+int		minimum(t_stack *lst);
+int		maximum(t_stack *lst);
+void	quick_sort(int arg[], int start, int end);
+int		partition(int arg[], int start, int end);
+void	set_position(t_stack *lst, int arg[]);
+int		*define_position(t_stack *lst);
 int		pop_push(t_stack **dst, t_stack **src);
 void	sort(t_stack **a, t_stack **b);
 int		doublicated(t_stack *lst);

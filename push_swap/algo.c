@@ -6,7 +6,7 @@
 /*   By: bbozorgm <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 15:01:30 by bbozorgm          #+#    #+#             */
-/*   Updated: 2022/07/05 20:32:13 by bbozorgm         ###   ########.fr       */
+/*   Updated: 2022/07/09 16:18:53 by bbozorgm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -49,20 +49,20 @@ void	print(t_stack *a, t_stack *b)
 	{	
 		while (a->next != NULL)
 		{
-			printf("a-val: %d\t a-next: %d a-prv: %d\n", a->val, a->next->val, a->prev->val);
+			printf("a-val: %d\t a-pos: %d\t a-next: %d a-prv: %d\n", a->val, a->pos, a->next->val, a->prev->val);
 			a = a->next;
 		}
-		printf("a-val: %d\t a-next: %p\n ", a->val, a->next);
+		printf("a-val: %d\t a-pos: %d\t a-next: %p\n ", a->val, a->pos,  a->next);
 	}
 	printf("\n b_stack  %p\n", b);
 	if (b != NULL)
 	{
 		while (b->next != NULL)
 		{
-			printf("b-val: %d\t b-next: %d\n ", b->val, b->next->val);
+			printf("b-val: %d\t b-pos: %d\t b-next: %d\n ", b->val, b->pos,  b->next->val);
 			b = b->next;
 		}
-		printf("b-val: %d\t b-next: %p\n", b->val, b->next);
+		printf("b-val: %d\t b-pos: %d\t b-next: %p\n", b->val, b->pos, b->next);
 	}
 }
 
@@ -156,12 +156,27 @@ void	algo_5(t_stack **a, t_stack **b)
 			pa(a, b);
 	}
 }
+
+
+int	maximum(t_stack *lst)
+{
+	int	max;
+	
+	max = lst->val;
+	while (lst != NULL && lst->next != NULL)
+	{
+		lst = lst->next;
+		if (lst->val > max)
+			max = lst->val;
+	}
+	return (max);
+}
 int	minimum(t_stack *lst)
 {
 	int	min;
 	
 	min = lst->val;
-	while (lst != NULL)
+	while (lst != NULL && lst->next != NULL)
 	{
 		lst = lst->next;
 		if (lst->val < min)
@@ -170,13 +185,13 @@ int	minimum(t_stack *lst)
 	return (min);
 }
 
-int	position(t_stack *lst)
+int	position(t_stack *lst, int (*func)(t_stack *))
 {
 	int	pos;
 	int	min;
 
 	pos = 0;
-	min = minimum(lst);
+	min = func(lst);
 	while (lst != NULL)
 	{
 		pos++;
@@ -187,6 +202,28 @@ int	position(t_stack *lst)
 	return (pos);
 }
 
+void	algo_b(t_stack **b, t_stack **a)
+{
+	int	val;
+	int n_val;
+	int p_val;
+	while(lst_size(*b) > 0)
+	{
+		val = (*a)->val;
+		n_val = (*a)->next->val;
+		p_val = (*a)->prev->val;
+		int	pos = position(*a, minimum);
+		int max = maximum(*a);
+		int size = lst_size(*a);
+		if (val == max)
+			pa(a, b);
+		else if (pos > size / 2 +1)
+			rrb(b);
+		else if (pos <= size / 2 + 1)
+			rb(b);
+	}
+}
+
 void	algo_big(t_stack **a, t_stack **b)
 {
 	int	val;
@@ -195,30 +232,40 @@ void	algo_big(t_stack **a, t_stack **b)
 	int size;
 	
 	size = lst_size(*a);
-	while (check_order(*a) == 0 || lst_size(*a) != size)
+	while (check_order(*a) == 0)
 	{
-		while (lst_size(*a) > 5 && check_order(*a) == 0)
+		while (lst_size(*a) > 3 && check_order(*a) == 0)
 		{
-			val = (*a)->val;
+		val = (*a)->val;
 			n_val = (*a)->next->val;
 			p_val = (*a)->prev->val;
-			int	pos = position(*a);
+			int	pos = position(*a, minimum);
 			int min = minimum(*a);
-
-			if (val == min)
+			int size = lst_size(*a);
+			if (val == min)// || (val < n_val && val < p_val))
 				pb(b, a);
-			else if (val > n_val)
-				sa(*a);
-			else if (pos > lst_size(*a) / 2)
-				ra(a);
-			else if (pos <= lst_size(*a) / 2)
+		//	else if ((val < n_val && val > p_val) || (pos > size / 2 +1))
+		//		rra(a);
+			
+		//	else if (val > n_val && n_val < p_val)
+		//		sa(*a);
+		//	else if (val > n_val && n_val > p_val)
+	//			rra(a);
+			else if (pos > lst_size(*a) / 2 + 1)
 				rra(a);
+			else if (pos <= size / 2 + 1)
+				ra(a);
+			
+	
 		}
-		if (lst_size(*a) == 5)
-			algo_5(a, b);
-		if (*b != NULL)
-			pa(a, b);
+		if (lst_size(*a) == 3)
+			algo_3(a);
 	}
+//	algo_b(b,a);
+	while (*b != NULL)
+		pa(a, b);
+
+	
 		
 }
 
@@ -232,9 +279,9 @@ void	algo(t_stack **a, t_stack **b)
 		sa(*a);
 	else if (size ==  3)
 		algo_3(a);
-	else if (size <= 5)
-		algo_5(a, b);
-	else if(size > 5)
+//	else if (size <= 5)
+//		algo_5(a, b);
+	else //if(size > 5)
 		algo_big(a, b);
 }
 
@@ -245,7 +292,7 @@ void	sort(t_stack **a, t_stack **b)
 	{
 		sorted = check_order(*a);
 		if (sorted == 0)
-		//	a_algo(&a, a, lst_last(a), &b);
+	//		a_algo(a, *a, lst_last(*a), b);
 			algo(a, b);
 	}
 }
