@@ -73,7 +73,7 @@ int		partition(int arg[], int start, int end);
 int		is_number(char *str);
 int		is_doublicated(t_stack *stack);
 int		doublicated(int *arr, int size);
-t_stack *do_checks(t_stack *stack);
+t_stack *do_checks(t_stack *stack, t_stack *b);
 
 void	algo_3(t_stack *a);
 

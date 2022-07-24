@@ -68,7 +68,7 @@ int	is_doublicated(t_stack *stack)
 	return (doublicated(arr, size));
 }
 
-t_stack	*do_checks(t_stack *stack)
+t_stack	*do_checks(t_stack *stack, t_stack *b)
 {
 	t_node	*node;
 	int		size;
@@ -82,7 +82,7 @@ t_stack	*do_checks(t_stack *stack)
 	}
 	else
 	{
-		free_stack(stack);
+		free_all(stack, b);
 		print_msg();
 		return (NULL);
 	}

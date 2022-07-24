@@ -4,9 +4,10 @@
 void	print_msg()
 {
 	write(STDERR, "Error\n", 6);
-	exit(0);
+//	ft_putendl_fd("Error", 2);
+	exit(1);
 }
-
+/*
 void	print_stack(t_stack *stack)
 {
 	t_node *top;
@@ -21,3 +22,4 @@ void	print_stack(t_stack *stack)
 	}
 	stack->top = fix;
 }
+*/

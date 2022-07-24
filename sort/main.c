@@ -11,10 +11,14 @@ int	main(int argc, char **argv)
 		a = init_stack();
 		b = init_stack();
 		fill_stack(a, argv, argc);
-		do_checks(a);
+		if (do_checks(a, b))
 	//	sort(a, b, a->size);
-		algo_5(a, b);
-		print_stack(a);
+		{
+			algo_5(a, b);
+			free_all(a, b);
+		}
+//		print_stack(a);
 	}
+	
 	return (0);
 }

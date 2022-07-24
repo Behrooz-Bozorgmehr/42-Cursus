@@ -104,9 +104,11 @@ int	pop_push(t_stack *dst, t_stack *src, char dst_flag)
 			src->top = src->top->next;
 			src->top->prev = NULL;
 		}
+		else 
+			src->top = NULL;
 		lst_add_front(dst, head->val, head->pos);
-		free(head);
-		head = NULL;
+	//	free(head);
+//		head = NULL;
 		src->size--;	
 		if (dst_flag == 'A')
 			write(STDOUT, "pa\n", 3);

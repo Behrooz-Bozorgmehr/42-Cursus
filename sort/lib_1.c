@@ -15,15 +15,19 @@ int	atoi_func(char *str)
 		if (*str++ == '-')
 			sign = -1;
 	}
-	while (*str)
+	if (*str)
 	{
-		conv = conv * 10 + (*str - '0');
-		str++;
+		while (*str)
+		{
+			conv = conv * 10 + (*str - '0');
+			str++;
+		}
+		conv *= sign;
+		if (conv <= MAX_INT && conv >= MIN_INT)
+			return (conv);
 	}
-	conv *= sign;
-	if (conv > MAX_INT || conv < MIN_INT)
-		print_msg();
-	return (conv);
+	print_msg();
+	return (0);
 }
 
 // define neighbors of a node
@@ -58,7 +62,7 @@ int	set_node(t_stack **stack, t_node **node, char *str)
 		temp = init_node();
 		if (temp == NULL || is_number(args[i]) == 0)
 			print_msg();
-		temp->val = atoi(args[i]);
+		temp->val = atoi_func(args[i]);
 		set_connections(stack, node, &temp);
 		(*stack)->size++;
 		free(args[i]);
