@@ -1,6 +1,6 @@
 
 #include "push_swap.h"
-
+/*
 void	algo_3(t_stack *a)
 {
 	t_node	*top;
@@ -28,3 +28,4 @@ void	algo_3(t_stack *a)
 		rra(a);
 	}
 }
+*/

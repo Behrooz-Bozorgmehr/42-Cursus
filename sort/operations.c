@@ -1,16 +1,17 @@
 
 #include "push_swap.h"
 
-void	swap(t_stack *stack, char flag)
+int	swap(t_stack **stack, char flag)
 {
 	t_node	*top;
 	t_node	*next;
 
-	next = stack->top;
-	top = stack->next;
-	if (next != NULL && top != NULL)	
+	next = (*stack)->top;
+	top = (*stack)->top->next;
+	if (next != NULL && top != NULL)
 	{
-		top->next->prev = next;
+		if (top->next != NULL)
+			top->next->prev = next;
 		next->next = top->next;
 		next->prev = top;
 		top->prev = NULL;
@@ -19,10 +20,12 @@ void	swap(t_stack *stack, char flag)
 			write(STDOUT, "sa\n", 3);
 		else if (flag == 'B')
 			write(STDOUT, "sb\n", 3);
+		return (1);
 	}
+	return (0);
 }
 
-void	rotate(t_stack *stack, char flag)
+int	rotate(t_stack *stack, char flag)
 {
 	t_node	*bot;
 	t_node	*top;
@@ -40,10 +43,12 @@ void	rotate(t_stack *stack, char flag)
 			write(STDOUT, "ra\n", 3);
 		else if (flag == 'B')
 			write(STDOUT, "rb\n", 3);
+		return (1);
 	}
+	return (0);
 }
 
-void	rotate_backward(t_stack *stack, char flag)
+int	rotate_backward(t_stack *stack, char flag)
 {
 	t_node	*bot;
 	t_node	*top;
@@ -61,6 +66,33 @@ void	rotate_backward(t_stack *stack, char flag)
 			write(STDOUT, "rra\n", 4);
 		else if (flag == 'B')
 			write(STDOUT, "rrb\n", 4);
+		return (1);
 	}
+	return (0);
+}
+
+int	pop_push(t_stack *dst, t_stack *src, char dst_flag)
+{
+	t_node	*temp;
 	
+	if (src != NULL)
+	{
+		temp = src->top;
+		if (temp->next != NULL)
+			temp->next->prev = NULL;
+		temp->next = NULL;
+		if (dst->top != NULL)
+		{	
+			temp->next = dst->top;
+			dst->top->prev = temp;
+		}
+		else
+			dst->top = temp;
+		if (dst_flag == 'A')
+			write(STDOUT, "pa\n", 3);
+		else if (dst_flag == 'B')
+			write(STDOUT, "pb\n", 3);
+		return (1);
+	}
+	return (0);
 }

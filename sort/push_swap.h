@@ -77,9 +77,9 @@ t_stack *do_checks(t_stack *stack);
 
 void	algo_3(t_stack *a);
 
-void	swap(t_stack *stack, char flag);
-void	rotate(t_stack *stack, char flag);
-void	rotate_backward(t_stack *stack, char flag);
+int		swap(t_stack **stack, char flag);
+int		rotate(t_stack *stack, char flag);
+int		rotate_backward(t_stack *stack, char flag);
 
 
 void	print_stack(t_stack *stack);
