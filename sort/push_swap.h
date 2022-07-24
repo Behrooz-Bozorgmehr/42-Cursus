@@ -77,12 +77,18 @@ t_stack *do_checks(t_stack *stack);
 
 void	algo_3(t_stack *a);
 
-int		swap(t_stack **stack, char flag);
+int		swap(t_stack *stack, char flag);
 int		rotate(t_stack *stack, char flag);
 int		rotate_backward(t_stack *stack, char flag);
+int		pop_push(t_stack *dst, t_stack *src, char dst_flag);
 
-
+void	lst_add_front(t_stack *stack, int val, int pos);
 void	print_stack(t_stack *stack);
 
+void	algo_3(t_stack *a);
+void	algo_5(t_stack *a, t_stack *b);
+
+int		check_order(t_stack *stack);
+int		check_reverse_order(t_stack *stack);
 
 #endif /* PUSH_SWAP_H */

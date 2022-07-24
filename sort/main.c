@@ -13,8 +13,7 @@ int	main(int argc, char **argv)
 		fill_stack(a, argv, argc);
 		do_checks(a);
 	//	sort(a, b, a->size);
-		swap(&a, 'A');	
-		
+		algo_5(a, b);
 		print_stack(a);
 	}
 	return (0);

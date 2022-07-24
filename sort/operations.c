@@ -1,13 +1,14 @@
 
 #include "push_swap.h"
 
-int	swap(t_stack **stack, char flag)
+int	swap(t_stack *stack, char flag)
+
 {
 	t_node	*top;
 	t_node	*next;
 
-	next = (*stack)->top;
-	top = (*stack)->top->next;
+	next = (stack)->top;
+	top = (stack)->top->next;
 	if (next != NULL && top != NULL)
 	{
 		if (top->next != NULL)
@@ -16,6 +17,7 @@ int	swap(t_stack **stack, char flag)
 		next->prev = top;
 		top->prev = NULL;
 		top->next = next;
+		(stack)->top = top;
 		if (flag == 'A')
 			write(STDOUT, "sa\n", 3);
 		else if (flag == 'B')
@@ -29,23 +31,33 @@ int	rotate(t_stack *stack, char flag)
 {
 	t_node	*bot;
 	t_node	*top;
-
-	top = stack->top;
-	bot = stack->bot;
-	if (top != NULL && top->next != NULL)
+		
+	bot = stack->top;
+	top = stack->bot;
+	if (stack->size == 1)
+		return (0);
+	if (stack->size == 2)
 	{
-		bot->prev->next = top;
-		bot = top;
-		top = top->next;
-		top->prev = NULL;
-		bot->next = NULL;
-		if (flag == 'A')
-			write(STDOUT, "ra\n", 3);
-		else if (flag == 'B')
-			write(STDOUT, "rb\n", 3);
-		return (1);
+		stack->top = top;
+		stack->bot = bot;
+		stack->top->next = bot;
+		stack->bot->prev = top;	
 	}
-	return (0);
+	else if(stack->size > 2)
+	{
+		stack->bot->next = stack->top;
+		stack->top->prev = stack->bot;
+		stack->bot = stack->top;
+		stack->top = stack->top->next;
+	
+	}	
+	stack->top->prev = NULL;
+	stack->bot->next = NULL;
+	if (flag == 'A')
+		write(STDOUT, "ra\n", 3);
+	else if (flag == 'B')
+		write(STDOUT, "rb\n", 3);
+	return (1);
 }
 
 int	rotate_backward(t_stack *stack, char flag)
@@ -53,41 +65,49 @@ int	rotate_backward(t_stack *stack, char flag)
 	t_node	*bot;
 	t_node	*top;
 
-	top = stack->top;
-	bot = stack->bot;
-	if (top != NULL && top->next != NULL)
+	top = stack->bot;
+	bot = stack->top;
+	if (stack->size == 1)
+		return (0);
+	if (stack->size == 2)
 	{
-		bot->next = top->next;
-		top = bot;
-		bot = bot->prev;
-		bot->next = NULL;
-		top->prev = NULL;
-		if (flag == 'A')
-			write(STDOUT, "rra\n", 4);
-		else if (flag == 'B')
-			write(STDOUT, "rrb\n", 4);
-		return (1);
+		stack->top = top;
+		stack->bot = bot;
+		stack->top->next = bot;
+		stack->bot->prev = top;	
 	}
-	return (0);
+	else if(stack->size > 2)
+	{
+		stack->bot->next = stack->top;
+		stack->top->prev = stack->bot;
+		stack->top = stack->bot;
+		stack->bot = stack->bot->prev;
+	}	
+	stack->top->prev = NULL;
+	stack->bot->next = NULL;
+	if (flag == 'A')
+		write(STDOUT, "rra\n", 4);
+	else if (flag == 'B')
+		write(STDOUT, "rrb\n", 4);
+	return (1);
 }
 
 int	pop_push(t_stack *dst, t_stack *src, char dst_flag)
 {
-	t_node	*temp;
-	
+	t_node	*head;
+
 	if (src != NULL)
 	{
-		temp = src->top;
-		if (temp->next != NULL)
-			temp->next->prev = NULL;
-		temp->next = NULL;
-		if (dst->top != NULL)
-		{	
-			temp->next = dst->top;
-			dst->top->prev = temp;
+		head = src->top; 
+		if (head->next != NULL)
+		{
+			src->top = src->top->next;
+			src->top->prev = NULL;
 		}
-		else
-			dst->top = temp;
+		lst_add_front(dst, head->val, head->pos);
+		free(head);
+		head = NULL;
+		src->size--;	
 		if (dst_flag == 'A')
 			write(STDOUT, "pa\n", 3);
 		else if (dst_flag == 'B')
