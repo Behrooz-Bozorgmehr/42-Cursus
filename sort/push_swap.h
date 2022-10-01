@@ -8,7 +8,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "../Rank1/libft/libft.h"
-
+#include <string.h>
 # define STDOUT 1
 # define STDERR 2
 
@@ -87,6 +87,19 @@ void	print_stack(t_stack *stack);
 
 void	algo_3(t_stack *a);
 void	algo_5(t_stack *a, t_stack *b);
+void	moves_a_2_b(t_stack *a, t_stack *b, int n, int *count);
+void	moves_b_2_a(t_stack *a, t_stack *b, int n, int *count);
+void    three_handler_b(t_stack *a, t_stack *b, int n);
+void    three_handler_a(t_stack *a, int n);
+void    two_handler(t_stack *a, t_stack *b, int flag);
+void	under_three_handler(t_stack *a, t_stack *b, int flag, int n);
+void	five_handler(t_stack *a, t_stack *b);
+void	sort_five_handler(t_stack *a, t_stack *b, int flag, int n);
+int		rotate_both(t_stack *a, t_stack *b);
+int		rotate_both_backward(t_stack *a, t_stack *b);
+void	sort(t_stack *a, t_stack *b);
+void 	print_string(char *str);
+
 
 int		check_order(t_stack *stack);
 int		check_reverse_order(t_stack *stack);

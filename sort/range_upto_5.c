@@ -27,6 +27,8 @@ void	algo_3(t_stack *a)
 		rotate_backward(a, 'A');
 		rotate_backward(a, 'A');
 	}
+	else if (top->next->val == bot->val && top->val > bot->val)
+		swap(a, 'A');
 }
 
 void	algo_5(t_stack *a, t_stack *b)

@@ -49,7 +49,7 @@ int	rotate(t_stack *stack, char flag)
 		stack->top->prev = stack->bot;
 		stack->bot = stack->top;
 		stack->top = stack->top->next;
-	
+		//print_stack(stack);	
 	}	
 	stack->top->prev = NULL;
 	stack->bot->next = NULL;
@@ -62,15 +62,19 @@ int	rotate(t_stack *stack, char flag)
 
 int	rotate_backward(t_stack *stack, char flag)
 {
+	//print_string("operations.c, func: rotate_backward");
 	t_node	*bot;
 	t_node	*top;
-
+	char c = 'a' + stack->size;
+	write(1, &c, 1);
+	write(1, "\n", 1);
 	top = stack->bot;
 	bot = stack->top;
 	if (stack->size == 1)
 		return (0);
-	if (stack->size == 2)
+	else if (stack->size == 2)
 	{
+		print_string("operations.c, func: rotate_backward_size 2");
 		stack->top = top;
 		stack->bot = bot;
 		stack->top->next = bot;
@@ -78,10 +82,14 @@ int	rotate_backward(t_stack *stack, char flag)
 	}
 	else if(stack->size > 2)
 	{
-		stack->bot->next = stack->top;
-		stack->top->prev = stack->bot;
-		stack->top = stack->bot;
-		stack->bot = stack->bot->prev;
+		print_string("operations.c, func: rotate_backward_size > 2");
+	
+		stack->bot = top->prev;
+		stack->top->next->prev = top;
+		top->next = stack->top;
+		stack->top = top;
+
+		print_stack(stack);	
 	}	
 	stack->top->prev = NULL;
 	stack->bot->next = NULL;
@@ -92,9 +100,26 @@ int	rotate_backward(t_stack *stack, char flag)
 	return (1);
 }
 
+int	rotate_both(t_stack *a, t_stack *b)
+{
+	rotate(a, 'A');
+	rotate(b, 'B');
+	return (1);
+}
+
+int	rotate_both_backward(t_stack *a, t_stack *b)
+{
+	rotate_backward(a, 'A');
+	rotate_backward(b, 'B');
+	return (1);
+}
+
 int	pop_push(t_stack *dst, t_stack *src, char dst_flag)
 {
+	print_string("operations.c, func:pop_push");
 	t_node	*head;
+
+	
 
 	if (src != NULL)
 	{
@@ -109,7 +134,14 @@ int	pop_push(t_stack *dst, t_stack *src, char dst_flag)
 		lst_add_front(dst, head->val, head->pos);
 	//	free(head);
 //		head = NULL;
-		src->size--;	
+		src->size--;
+		
+		print_string("source:\n");
+		print_stack(src);
+		print_string("dst:\n");
+		write(1, &dst_flag, 1);
+		print_string(":\n");
+		print_stack(dst);
 		if (dst_flag == 'A')
 			write(STDOUT, "pa\n", 3);
 		else if (dst_flag == 'B')

@@ -45,4 +45,6 @@ void 	init_pivots(t_stack *stack, t_operation *op, int n)
 	min = minimum(stack->top, n);
 	op->pvt_a = (min + maximum(stack->top, n)) / 2;
 	op->pvt_b = (min + (op->pvt_a)) / 2;
+
+	//printf("pvt_a: %d, pvt_b: %d", op->pvt_a, op->pvt_b);
 }
