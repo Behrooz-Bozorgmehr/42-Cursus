@@ -30,10 +30,11 @@ int	minimum(t_node *node, int n)
 		node = node->next;
 		n--;
 	}
+	
 	return (min);
 }
 
-int	fives_middle(t_node *node, int size)
+int	middle(t_node *node, int size)
 {
 	int	i;
 	int	tab[5];
@@ -41,9 +42,10 @@ int	fives_middle(t_node *node, int size)
 	i = 0;
 	while (i < size && node != NULL)
 	{
-		tab[i++] = node->val;
+		tab[i] = node->val;
 		node = node->next;
+		i++;
 	}
 	quick_sort(tab, 0, i - 1);
-	return (tab[2]);
+	return (tab[size / 2]);
 }

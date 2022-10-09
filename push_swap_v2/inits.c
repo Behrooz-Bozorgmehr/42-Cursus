@@ -6,8 +6,8 @@ void	init_ops(t_operation  *op)
 	op->rb = 0;
 	op->pa = 0;
 	op->pb = 0;
-	op->pvt_a = 0;
-	op->pvt_b = 0;
+//	op->pvt_a = 0;
+//	op->pvt_b = 0;
 }
 
 t_node	*init_node()
@@ -40,8 +40,10 @@ t_stack	*init_stack()
 void 	init_pivots(t_stack *stack, t_operation *op, int n)
 {
 	int min;
-
+	print_stack_details(stack, 'A');
 	min = minimum(stack->top, n);
+	print_stack_details(stack, 'A');
 	op->pvt_a = (min + maximum(stack->top, n)) / 2;
 	op->pvt_b = (min + (op->pvt_a)) / 2;
+	print_stack_details(stack, 'A');
 }

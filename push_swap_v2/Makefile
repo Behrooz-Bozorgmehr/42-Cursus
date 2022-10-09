@@ -13,9 +13,11 @@ FILES = ./main.c \
 		./print.c \
 		./swap_and_push.c \
 		./rotates.c \
-		./upto_three_ranges.c \
-		./upto_five_ranges.c \
+		./upto_three_sets.c \
+		./upto_five_sets.c \
 		./quick_sort.c \
+		./big_set_a.c \
+		./big_set_b.c \
 		../Rank1/libft/ft_split.c \
 		../Rank1/libft/ft_isdigit.c \
 		../Rank1/libft/ft_putendl_fd.c \

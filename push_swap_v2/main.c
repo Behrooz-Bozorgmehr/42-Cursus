@@ -9,11 +9,13 @@ int	main(int argc, char **argv)
 	{
 		a = init_stack();
 		b = init_stack();
-		fill_stack(a, argv, argc);      
-        five_handler(a, b, 'A', a->size);
-      /*  print_stack_details(a, 'A');
+		fill_stack(a, argv, argc);    
+    int count = 0;
+    moves_a2b(a, b, a->size, &count);  
+      //  upto_five_handler(a, b, 'A', a->size);
+        print_stack_details(a, 'A');
         print_stack_details(b, 'B');
-
+/*
         pop_push(b, a, 'B');
         pop_push(b, a, 'B');
         pop_push(b, a, 'B');

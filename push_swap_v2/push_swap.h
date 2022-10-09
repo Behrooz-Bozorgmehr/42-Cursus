@@ -63,7 +63,7 @@ void	set_connections(t_stack **stack, t_node **node, t_node **temp);
 
 int		maximum(t_node *node, int n);
 int		minimum(t_node *node, int n);
-int		fives_middle(t_node *node, int size);
+int		middle(t_node *node, int size);
 
 int		*define_position(t_node *node, int size);
 void	set_position(t_node *node, int ptr[], int size);
@@ -87,18 +87,19 @@ void	print_stack(t_stack *stack);
 
 void	algo_3(t_stack *a);
 void	algo_5(t_stack *a, t_stack *b);
-void	moves_a_2_b(t_stack *a, t_stack *b, int n, int *count);
-void	moves_b_2_a(t_stack *a, t_stack *b, int n, int *count);
+void	moves_a2b(t_stack *a, t_stack *b, int n, int *count);
+void	moves_b2a(t_stack *a, t_stack *b, int n, int *count);
 void    three_handler_b(t_stack *b);
 void    three_handler_a(t_stack *a);
 void    two_handler(t_stack *a, t_stack *b, int flag);
-void	under_three_handler(t_stack *a, t_stack *b, int flag, int n);
-void	five_handler(t_stack *a, t_stack *b, char flag, int size);
+void	upto_three_handler(t_stack *a, t_stack *b, char flag, int n);
+void	upto_five_handler(t_stack *a, t_stack *b, char flag, int size);
 int		rotate_both(t_stack *a, t_stack *b);
 int		rotate_both_backward(t_stack *a, t_stack *b);
 void	sort(t_stack *a, t_stack *b);
 void 	print_string(char *str);
 void	print_stack_details(t_stack *stack, char flag);
+int	end_stack_handler(t_stack *a, t_stack *b, char flag, int size);
 
 
 int		check_order(t_stack *stack);

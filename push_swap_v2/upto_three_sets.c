@@ -16,8 +16,10 @@ void	two_handler(t_stack *a, t_stack *b, int flag)
 	}
 }
 
-void	under_three_handler(t_stack *a, t_stack *b, int flag, int size)
+void	upto_three_handler(t_stack *a, t_stack *b, char flag, int size)
 {
+	print_string("in upto three handler flag is :");
+	print_string(&flag);
 	if (size == 3)
 	{
 		if (flag == 'A')

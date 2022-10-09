@@ -4,7 +4,7 @@ int	rotate(t_stack *stack, char flag)
 {
 	t_node	*top;
 	t_node	*new_top;
-
+	
 	if (stack->size < 2)
 		return (0);
 	top = stack->top;
@@ -26,7 +26,6 @@ int	rotate_backward(t_stack *stack, char flag)
 {
 	t_node	*bottom;
 	t_node	*new_bot;
-
 	if (stack->size < 2)
 		return (0);
 	bottom = stack->bot;
