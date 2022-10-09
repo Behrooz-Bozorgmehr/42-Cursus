@@ -3,8 +3,7 @@
 void    five_handler_b(t_stack *a, t_stack *b, int size)
 {
     int max;
-    print_string("in five handler_b");
-    print_stack_details(b, 'B');
+    
     while(size)
     {
         max = maximum(b->top, size);
@@ -18,7 +17,6 @@ void    five_handler_b(t_stack *a, t_stack *b, int size)
             rotate(b, 'B');
         size--;
     }
-    print_string("out from fivehandler b");
 }
 
 void    upto_five_handler_a(t_stack *a, t_stack *b, int size)
@@ -85,10 +83,8 @@ void	upto_five_handler(t_stack *a, t_stack *b, char flag, int size)
         upto_five_handler_a(a, b, size);
     else if (flag == 'B')
         upto_five_handler_b(a, b, size);
-    //    five_handler_b(a, b, size);
-    upto_three_handler(a, b, 'A', 3);
-    //    five_handler_b(a, b, b->size);
-    upto_three_handler(a, b, 'B', 2);
+        upto_three_handler(a, b, 'A', 3);
+        upto_three_handler(a, b, 'B', 2);
 }
         
 

@@ -12,11 +12,12 @@ void 	print_string(char *str)
 }
 
 
-void	print_stack(t_stack *stack)
+void	print_stack(t_stack *stack, char flag)
 {
 	t_node *top;
 	t_node *fix;
 	
+	printf("stack: %c\t stack_size: %d\n", flag, stack->size);
 	fix = stack->top;
 	while (stack->top != NULL)
 	{

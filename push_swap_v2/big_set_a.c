@@ -23,8 +23,7 @@ void	pop_from_a(t_stack *a, t_stack *b, t_operation *ops)
 		ops->pb++;
 		if (b->top->val > ops->pvt_b)
 		{
-            print_string("pop from a: rotate b:");
-			rotate(b, 'B');
+           	rotate(b, 'B');
 			ops->rb++;
 		}
 	}

@@ -18,15 +18,13 @@ void	two_handler(t_stack *a, t_stack *b, int flag)
 
 void	upto_three_handler(t_stack *a, t_stack *b, char flag, int size)
 {
-	print_string("in upto three handler flag is :");
-	print_string(&flag);
 	if (size == 3)
 	{
 		if (flag == 'A')
-			three_handler_a(a);
+			three_handler_a(a, size);
 		else
 		{
-            three_handler_b(b);
+            three_handler_b(a, b, size);
             pop_push(a, b, 'A');
             pop_push(a, b, 'A');
             pop_push(a, b, 'A');
@@ -40,7 +38,7 @@ void	upto_three_handler(t_stack *a, t_stack *b, char flag, int size)
 			pop_push(a, b, 'A');
 	}
 }
-
+/*
 void	three_handler_a(t_stack *a)
 {
 	int	mid;
@@ -92,3 +90,4 @@ void	three_handler_b(t_stack *b)
         rotate_backward(b, 'B');
     }
 }	
+*/

@@ -40,10 +40,7 @@ t_stack	*init_stack()
 void 	init_pivots(t_stack *stack, t_operation *op, int n)
 {
 	int min;
-	print_stack_details(stack, 'A');
 	min = minimum(stack->top, n);
-	print_stack_details(stack, 'A');
 	op->pvt_a = (min + maximum(stack->top, n)) / 2;
 	op->pvt_b = (min + (op->pvt_a)) / 2;
-	print_stack_details(stack, 'A');
 }

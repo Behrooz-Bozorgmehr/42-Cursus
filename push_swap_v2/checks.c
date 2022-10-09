@@ -46,15 +46,17 @@ int	is_integer(char *args)
 		return (1);
 }
 
-void	check_duplicated(t_node *a)
+void	check_duplicated(t_stack *a)
 {
 	int		current_value;
 	t_node	*tmp;
+	t_node	*top;
 
-	while (a->next)
+	top = a->top;
+	while (top->next)
 	{
-		tmp = a->next;
-		current_value = a->val;
+		tmp = top->next;
+		current_value = top->val;
 		while (tmp)
 		{
 			if (tmp->val == current_value)
@@ -64,8 +66,29 @@ void	check_duplicated(t_node *a)
 			else
 				break ;
 		}
-		a = a->next;
+		top = top->next;
 	}
-	while (a->prev)
-		a = a->prev;
+	//while (top->prev)
+	//	top = top->prev;
+}
+
+int	check_order(t_stack *stack)
+{
+	int	sorted;
+	t_node	*top;
+
+	sorted = 1;
+	top = stack->top;
+	while (top->next != NULL)
+	{
+		if (top->val < top->next->val)
+			sorted = 1;
+		else
+		{
+			sorted = 0;
+			return (sorted);
+		}
+		top = top->next;
+	}
+	return (sorted);
 }

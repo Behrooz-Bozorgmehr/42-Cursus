@@ -4,8 +4,7 @@ void	pop_from_b(t_stack *a, t_stack *b, t_operation *ops)
 {
 	if (b->top->val <= ops->pvt_b)
 	{
-		print_string("pop from b: rotate b:");
-        rotate(b, 'B');
+		rotate(b, 'B');
 		ops->rb++;
 	}
 	else

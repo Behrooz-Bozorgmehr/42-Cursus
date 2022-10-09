@@ -74,7 +74,7 @@ int		is_number(char *str);
 int		is_doublicated(t_stack *stack);
 int		doublicated(int *arr, int size);
 t_stack *do_checks(t_stack *stack, t_stack *b);
-
+void	check_duplicated(t_stack *a);
 void	algo_3(t_stack *a);
 
 int		swap(t_stack *stack, char flag);
@@ -83,14 +83,14 @@ int		rotate_backward(t_stack *stack, char flag);
 int		pop_push(t_stack *dst, t_stack *src, char dst_flag);
 
 void	lst_add_front(t_stack *stack, int val, int pos);
-void	print_stack(t_stack *stack);
+void	print_stack(t_stack *stack, char flag);
 
 void	algo_3(t_stack *a);
 void	algo_5(t_stack *a, t_stack *b);
 void	moves_a2b(t_stack *a, t_stack *b, int n, int *count);
 void	moves_b2a(t_stack *a, t_stack *b, int n, int *count);
-void    three_handler_b(t_stack *b);
-void    three_handler_a(t_stack *a);
+void    three_handler_b(t_stack *a, t_stack *b, int size);
+void    three_handler_a(t_stack *a, int size);
 void    two_handler(t_stack *a, t_stack *b, int flag);
 void	upto_three_handler(t_stack *a, t_stack *b, char flag, int n);
 void	upto_five_handler(t_stack *a, t_stack *b, char flag, int size);
